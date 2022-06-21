@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Canberra is the capital of Australia</string>
+    <string name="Button">True</string>
+    <string name="Button2">False</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
+</resources>
