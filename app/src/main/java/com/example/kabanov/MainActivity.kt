@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.util.Log
 import kotlin.Boolean
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity()
 {
     private lateinit var Button : Button
@@ -19,14 +21,12 @@ class MainActivity : AppCompatActivity()
 
     private val questionBank = listOf(
         Question(R.string.question_australia, true),
-        Question(R.string.question_oceans, true),
+        Question(R.string.question_oceans, false),
         Question(R.string.question_mideast, true),
-        Question(R.string.question_africa, true),
-        Question(R.string.question_americas, true),
+        Question(R.string.question_africa, false),
+        Question(R.string.question_americas, false),
         Question(R.string.question_asia, true))
     private var currentIndex = 0
-
-
 
    /* private fun  checkAnswer (userAnswer: Boolean1){
         val correctAnswer = questionBank[currentIndex].answer
@@ -39,13 +39,22 @@ class MainActivity : AppCompatActivity()
     }*/
     override fun onCreate(savedInstanceState: Bundle?)
     {
+
         super.onCreate(savedInstanceState)
+        Log.d(TAG,"onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
         Button = findViewById(R.id.button)
         Button2 = findViewById(R.id.button2)
         Button3 = findViewById(R.id.button3)
         nextButton = findViewById(R.id.next_button)
         questionTextView = findViewById(R.id.question_text_view)
+        Log.d(TAG, "Current question index: $currentIndex")
+        try {
+            val question = questionBank[currentIndex]
+        } catch (ex: ArrayIndexOutOfBoundsException) {
+            Log.e(TAG, "Index was out of bounds", ex)
+        }
+
         Button.setOnClickListener{
             checkAnswer(true)
         }
@@ -65,6 +74,32 @@ class MainActivity : AppCompatActivity()
         val questionTextResId = questionBank[currentIndex].textResId
         questionTextView.setText(questionTextResId)
     }
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG,
+            "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,
+            "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,
+            "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG,
+            "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,
+            "onDestroy() called")
+    }
+
     private fun updateQuestion(){
         val questionTextResId = questionBank [currentIndex].textResId
         questionTextView.setText(questionTextResId)
